@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAID Explorer: Redundant Array of Independent Disks</title>
+<meta name="description" content="Learn RAID 0, 1, 5, 6 and 10 with an interactive disk simulator, capacity calculator and level selector.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <nav class="nav" aria-label="Sections">
+    <a href="#intro">Intro</a><a href="#levels">Levels</a><a href="#lab">Disk lab</a>
+    <a href="#compare">Compare</a><a href="#choose">Choose</a><a href="#apps">Uses</a>
+  </nav>
+  <div class="hero-inner">
+    <div>
+      <h1>RAID</h1>
+      <p class="expand">Redundant Array of Independent Disks</p>
+      <p class="tag">More performance. More reliability. Better data access.</p>
+    </div>
+    <div class="hero-disks" aria-hidden="true" id="heroDisks"></div>
+  </div>
+  <p class="hero-note">Multiple disks, one goal: better storage.</p>
+</header>
+
+<main>
+<section id="intro" class="band">
+  <h2>What is RAID?</h2>
+  <div class="two">
+    <div>
+      <p>RAID is a data storage technology that combines multiple physical disks into one logical unit. It improves performance, reliability and availability of data, and it is widely used in servers, data centers, cloud storage and enterprise systems.</p>
+      <ul class="why">
+        <li>Disks can fail at any time.</li>
+        <li>Systems need high speed and large storage.</li>
+        <li>Protect data and keep the system running.</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <strong>Not a backup</strong>
+      <p>RAID protects against disk failure. It does not protect against accidental deletion, malware, ransomware, human error, or fire and floods. Always use a separate backup strategy.</p>
+    </div>
+  </div>
+</section>
+
+<section id="levels" class="band alt">
+  <h2>RAID levels: 0, 1, 5, 6, 10</h2>
+  <div class="cards" id="levelCards" aria-live="polite">Loading levels…</div>
+</section>
+
+<section id="lab" class="band">
+  <h2>Disk lab</h2>
+  <p class="lead">Pick a level and disk count, then click a disk to fail it. The server checks whether your data survives.</p>
+  <div class="lab">
+    <form class="controls" id="labForm" onsubmit="return false">
+      <label>RAID level
+        <select id="level"><option value="0">RAID 0</option><option value="1">RAID 1</option><option value="5" selected>RAID 5</option><option value="6">RAID 6</option><option value="10">RAID 10</option></select>
+      </label>
+      <label>Disks <output id="disksOut">4</output>
+        <input type="range" id="disks" min="2" max="12" value="4">
+      </label>
+      <label>Disk size (GB)
+        <input type="number" id="size" min="1" value="1000">
+      </label>
+      <button type="button" id="reset">Replace failed disks</button>
+      <dl class="stats" id="stats"></dl>
+    </form>
+    <div>
+      <div class="legend">
+        <span><i class="sw data"></i>Data</span><span><i class="sw parity"></i>Parity (P)</span>
+        <span><i class="sw parity2"></i>Parity (Q)</span><span><i class="sw mirror"></i>Mirror copy</span>
+      </div>
+      <div class="array" id="array" aria-live="polite"></div>
+      <p class="status" id="status" role="status"></p>
+      <p class="error" id="labError" role="alert" hidden></p>
+    </div>
+  </div>
+</section>
+
+<section id="compare" class="band alt">
+  <h2>Comparison</h2>
+  <div class="scroll"><table id="compareTable"></table></div>
+</section>
+
+<section id="choose" class="band">
+  <h2>Which RAID should I use?</h2>
+  <form class="chooser" id="chooser" onsubmit="return false">
+    <fieldset>
+      <legend>What is your main need?</legend>
+      <label><input type="radio" name="priority" value="performance"> Maximum performance</label>
+      <label><input type="radio" name="priority" value="reliability"> High reliability</label>
+      <label><input type="radio" name="priority" value="balanced" checked> Balanced (performance + safety)</label>
+    </fieldset>
+    <label class="check"><input type="checkbox" id="multi"> Must survive multiple disk failures</label>
+    <label>Disks available <input type="number" id="haveDisks" min="2" max="16" placeholder="optional"></label>
+    <button type="submit" id="ask">Get recommendation</button>
+  </form>
+  <div id="answer" class="answer" aria-live="polite"></div>
+</section>
+
+<section id="apps" class="band alt">
+  <h2>Where RAID is used</h2>
+  <div class="apps">
+    <article><h3>Data centers</h3><p>High availability and uptime for cloud and web services.</p></article>
+    <article><h3>Enterprise storage</h3><p>Business applications and large databases.</p></article>
+    <article><h3>Cloud storage</h3><p>Scalable, reliable storage on platforms like AWS, Azure and Google Cloud.</p></article>
+    <article><h3>Media and entertainment</h3><p>Video editing, streaming and fast data access.</p></article>
+    <article><h3>Healthcare</h3><p>Patient records, imaging and data protection with reliability.</p></article>
+  </div>
+</section>
+
+<section class="band">
+  <h2>Conclusion</h2>
+  <ul class="ticks">
+    <li>RAID improves speed, reliability and data availability.</li>
+    <li>Different levels suit different needs and budgets.</li>
+    <li>RAID 5 and 6 offer good balance of performance and safety.</li>
+    <li>RAID 10 is best for high performance and fault tolerance.</li>
+    <li>Always plan according to your data needs, budget and risk level.</li>
+  </ul>
+</section>
+
+<section class="band alt">
+  <h2>References</h2>
+  <ul class="refs">
+    <li>IBM Documentation: RAID levels and implementation guide</li>
+    <li>UC Berkeley RAID Research (1994): <em>A Case for Redundant Arrays of Inexpensive Disks</em></li>
+    <li>IEEE Xplore, ScienceDirect, ResearchGate (2021–2025)</li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <p>Based on the RAID infographic by Goushikha Varshinie, B.Tech CSBS.</p>
+  <p>More performance. More reliability. Better data access.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "raid-explorer",
+  "version": "1.0.0",
+  "description": "Interactive RAID (Redundant Array of Independent Disks) learning website with a Node.js API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node backend/raid.test.js"
+  },
+  "engines": { "node": ">=16" },
+  "license": "MIT"
+}
